@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trance Himachal - Travel Packages</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- RESET & GLOBAL STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #000000;
+            color: #FFFFFF;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; }
+
+        /* Color Variables */
+        :root {
+            --primary-yellow: #FFD700;
+            --bg-black: #000000;
+            --text-white: #FFFFFF;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Background Video */
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        /* Overlay for text readability */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+
+        /* Top Left Logo */
+        .logo-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-yellow);
+        }
+
+        .logo-text {
+            color: #FFFFFF;
+            font-size: 24px; /* Scaled down slightly for mobile safety */
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        /* Hero Content */
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            text-align: center;
+            width: 90%;
+        }
+
+        .hero-headline {
+            font-weight: 700;
+            font-size: clamp(40px, 8vw, 90px);
+            line-height: 1.2;
+            color: #FFFFFF;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+        }
+
+        .hero-btn {
+            display: inline-block;
+            background-color: var(--primary-yellow);
+            color: var(--bg-black);
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 50px;
+            transition: transform 0.3s ease, background 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .hero-btn:hover {
+            transform: scale(1.05);
+            background-color: #ffffff;
+        }
+
+        /* --- ABOUT US SECTION --- */
+        .about-section {
+            background-color: var(--bg-black);
+            padding: 60px 0;
+            overflow: hidden;
+        }
+
+        .about-heading {
+            text-align: center;
+            font-size: 38px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 40px;
+        }
+
+        /* Two Column Container - STRICT Side-by-Side */
+        .about-container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            /* Ensures equal height */
+            align-items: stretch; 
+        }
+
+        /* Text Block */
+        .about-text {
+            flex: 1;
+            padding: 20px 5%; /* % padding allows scaling */
+            color: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* Typography scaling for narrow columns */
+            font-size: clamp(12px, 2vw, 18px); 
+            line-height: 1.6;
+        }
+
+        .highlight-yellow {
+            color: var(--primary-yellow);
+            font-weight: 700;
+        }
+
+        /* Image Block */
+        .about-image-wrapper {
+            flex: 1;
+            position: relative;
+            /* Container for the image to fill height */
+            display: flex; 
+        }
+
+        .about-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* The image provided is portrait, so cover works best */
+        }
+
+        /* Gradient Mask Overlay */
+        .about-img-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Gradient fading edges to black */
+            background: radial-gradient(circle, transparent 50%, #000000 100%);
+            pointer-events: none;
+        }
+
+        .about-subheading {
+            text-align: center;
+            font-size: clamp(20px, 4vw, 30px);
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-top: 40px;
+            padding: 0 20px;
+        }
+
+        /* --- PACKAGES SECTION --- */
+        .packages-section {
+            background-color: var(--bg-black);
+            padding: 50px 0;
+        }
+
+        /* Package Row - Side by Side Always */
+        .package-row {
+            display: flex;
+            width: 100%;
+            height: clamp(300px, 50vw, 500px); /* Dynamic height based on width */
+            margin-bottom: 30px;
+            align-items: stretch;
+            overflow: hidden;
+        }
+
+        /* Alternating Layouts */
+        .package-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        /* Carousel Side */
+        .carousel-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            width: 50%; /* Force half width */
+        }
+
+        .carousel-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.8s ease-in-out;
+            width: 100%; 
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Content Side */
+        .package-content {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 50%; /* Force half width */
+            background: #080808; /* Very subtle contrast against deep black */
+        }
+
+        .pkg-title {
+            font-size: clamp(22px, 4vw, 40px);
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        /* Destination Colors */
+        .color-shimla { color: #00FFFF; /* Cyan */ }
+        .color-dharamshala { color: #FF00FF; /* Magenta */ }
+        .color-manali { color: #7FFF00; /* Chartreuse */ }
+        .color-dalhousie { color: #FF4500; /* Orange Red */ }
+        .color-spiti { color: #1E90FF; /* Dodger Blue */ }
+
+        .pkg-desc {
+            color: #FFFFFF;
+            font-size: clamp(11px, 1.5vw, 16px);
+            line-height: 1.4;
+            margin-bottom: 20px;
+            /* Mandatory text wrapping rules */
+            word-break: normal;
+            overflow-wrap: break-word;
+            white-space: normal;
+        }
+
+        .pkg-btn {
+            align-self: flex-start;
+            background-color: var(--primary-yellow);
+            color: var(--bg-black);
+            padding: 10px 15px;
+            font-size: clamp(10px, 1.5vw, 16px);
+            font-weight: 700;
+            border-radius: 5px;
+            text-transform: uppercase;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #000000;
+            border-top: 1px solid #333;
+            text-align: center;
+            padding: 40px 20px;
+            color: #FFFFFF;
+        }
+
+        .footer-info {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .footer-info a {
+            color: var(--primary-yellow);
+        }
+
+        /* --- RESPONSIVE TWEAKS --- */
+        /* Even though we force side-by-side, we tweak padding on mobile */
+        @media (max-width: 768px) {
+            .logo-text { font-size: 18px; }
+            .about-container { flex-direction: row; } /* Explicitly keep row */
+            .about-text { padding: 10px; }
+            .package-content { padding: 15px; }
+            .pkg-btn { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="https://cdn.jsdelivr.net/gh/prikshitbhardwaj259-sketch/Trance-Himachal-assets-/VID_20251212154954.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        
+        <div class="hero-overlay"></div>
+
+        <div class="logo-container">
+            <img src="https://cdn.jsdelivr.net/gh/prikshitbhardwaj259-sketch/Trance-Himachal-assets-/IMG_20251212_164450.jpg" alt="Trance Himachal Logo" class="logo-img">
+            <span class="logo-text">TRANCE HIMACHAL</span>
+        </div>
+
+        <div class="hero-content">
+            <h1 class="hero-headline">Taking you to the best places in Himachal Pradesh</h1>
+            <a href="https://wa.me/+918894900093?text=Hello!%20I%20am%20interested%20in%20your%20travel%20packages." class="hero-btn">Book Free Appointment</a>
+        </div>
+    </header>
+
+    <section class="about-section">
+        <h2 class="about-heading">Who Are We??</h2>
+        
+        <div class="about-container">
+            <div class="about-text">
+                <p>
+                    We are a travel agency offering the most reliable, value-for-money travel packages across Himachal Pradesh.<br><br>
+                    
+                    All of our packages are <span class="highlight-yellow">FULLY CUSTOMISABLE</span>,<br>
+                    our prices are <span class="highlight-yellow">AFFORDABLE</span>, and<br>
+                    everything is <span class="highlight-yellow">NEGOTIABLE</span>.<br><br>
+
+                    (NO HIDDEN CHARGES)<br><br>
+
+                    We take care of your <span class="highlight-yellow">HOTELS</span>,<br>
+                    <span class="highlight-yellow">TRANSPORT</span>, <span class="highlight-yellow">MEALS</span>, <span class="highlight-yellow">COMFORT</span>, <span class="highlight-yellow">CABS</span>,<br>
+                    and basically <span class="highlight-yellow">EVERYTHING</span> you’ll need for your trip.<br><br>
+
+                    We believe travel should be stress-free,<br>
+                    so <span class="highlight-yellow">WE PLAN THE ENTIRE TOUR FOR YOU—SO YOU DON’T HAVE TO.</span>
+                </p>
+            </div>
+            <div class="about-image-wrapper">
+                <img src="https://raw.githubusercontent.com/prikshitbhardwaj259-sketch/Trance-Himachal-assets-/main/Founder.jpg" alt="Travel Agency Himachal" class="about-img">
+                <div class="about-img-overlay"></div>
+            </div>
+        </div>
+
+        <h3 class="about-subheading">Just Choose Where You'd Like To Go And We'll Handle The Rest...</h3>
+    </section>
+
+    <section class="packages-section">
+        
+        <div class="package-row">
+            <div class="carousel-container" id="carousel-shimla">
+                <div class="carousel-track">
+                    <div class="carousel-slide"><img src="https://cdn.jsdelivr.net/gh/prikshitbhardwaj259-sketch/Trance-Himachal-assets-/Screenshot_2025-12-12-17-18-50-49_40deb401b9ffe8e1df2f1cc5ba480b12.jpg" alt="Shimla 1"></div>
+                    <div class="carousel-slide"><img src="https://cdn.jsdelivr.net/gh/prikshitbhardwaj259-sketch/Trance-Himachal-assets-/Screenshot_2025-12-12-17-19-14-37_40deb401b9ffe8e1df2f1cc5ba480b12.jpg" alt="Shimla 2"></div>
+                    <div class="carousel-slide"><img src="https://cdn.jsdelivr.net/gh/prikshitbhardwaj259-sketch/Trance-Himachal-assets-/Screenshot_2025-12-12-17-19-03-15_40deb401b9ffe8e1df2f1cc5ba480b12.jpg" alt="Shimla 3"></div>
+                </div>
+            </div>
+            <div class="package-content">
+                <h3 class="pkg-title color-shimla">SHIMLA</h3>
+                <p class="pkg-desc">Explore The Mall Road, Christ Church, Jakhu Temple, and Kufri.</p>
+                <a href="https://wa.me/+918894900093?text=Hello!%20I%20am%20interested%20in%20your%20travel%20packages." class="pkg-btn">Get Free Booking</a>
+            </div>
+        </div>
+
+        <div class="package-row">
+            <div class="carousel-container" id="carousel-dharamshala">
+                <div class="carousel-track">
+                    <div class="carousel-slide"><img src="https://cdn.jsdelivr.net/gh/prikshitbhardwaj259-sketch/Trance-Himachal-assets-/photo_2024-10-25_15-42-45_20251212_222856_0000.jpg" alt="Dharamshala 1"></div>
+                    <div class="carousel-slide"><img src="https://cdn.jsdelivr.net/gh/prikshitbhardwaj259-sketch/Trance-Himachal-assets-/photo_2024-10-25_15-42-47_20251212_222842_0000.jpg" alt="Dharamshala 2"></div>
+                    <div class="carousel-slide"><img src="https://cdn.jsdelivr.net/gh/prikshitbhardwaj259-sketch/Trance-Himachal-assets-/photo_2024-10-25_15-42-50_20251212_222924_0000.jpg" alt="Dharamshala 3"></div>
+                </div>
+            </div>
+            <div class="package-content">
+                <h3 class="pkg-title color-dharamshala">DHARAMSHALA</h3>
+                <p class="pkg-desc">Visit McLeod Ganj, HPCA Stadium, Bhagsu Waterfall, and Triund.</p>
+                <a href="https://wa.me/+918894900093?text=Hello!%20I%20am%20interested%20in%20your%20travel%20packages." class="pkg-btn">Get Free Booking</a>
+            </div>
+        </div>
+
+        <div class="package-row">
+            <div class="carousel-container" id="carousel-manali">
+                <div class="carousel-track">
+                    <div class="carousel-slide"><img src="https://cdn.jsdelivr.net/gh/prikshitbhardwaj259-sketch/Trance-Himachal-assets-/photo_2024-10-25_16-33-53_20251212_223904_0000.jpg" alt="Manali 1"></div>
+                    <div class="carousel-slide"><img src="https://cdn.jsdelivr.net/gh/prikshitbhardwaj259-sketch/Trance-Himachal-assets-/photo_2024-10-25_16-33-51_20251212_223924_0000.jpg" alt="Manali 2"></div>
+                    <div class="carousel-slide"><img src="https://cdn.jsdelivr.net/gh/prikshitbhardwaj259-sketch/Trance-Himachal-assets-/photo_2024-10-25_16-33-49_20251212_223915_0000.jpg" alt="Manali 3"></div>
+                </div>
+            </div>
+            <div class="package-content">
+                <h3 class="pkg-title color-manali">MANALI</h3>
+                <p class="pkg-desc">Experience Solang Valley, Rohtang Pass, Hidimba Devi Temple, and Old Manali.</p>
+                <a href="https://wa.me/+918894900093?text=Hello!%20I%20am%20interested%20in%20your%20travel%20packages." class="pkg-btn">Get Free Booking</a>
+            </div>
+        </div>
+
+        <div class="package-row">
+            <div class="carousel-container" id="carousel-dalhousie">
+                <div class="carousel-track">
+                    <div class="carousel-slide"><img src="https://cdn.jsdelivr.net/gh/prikshitbhardwaj259-sketch/Trance-Himachal-assets-/photo_2024-10-25_16-41-14%20(2)_20251211_182555_0000.jpg" alt="Dalhousie 1"></div>
+                    <div class="carousel-slide"><img src="https://cdn.jsdelivr.net/gh/prikshitbhardwaj259-sketch/Trance-Himachal-assets-/photo_2024-10-25_16-41-11%20(2)_20251211_182607_0000.jpg" alt="Dalhousie 2"></div>
+                    <div class="carousel-slide"><img src="https://cdn.jsdelivr.net/gh/prikshitbhardwaj259-sketch/Trance-Himachal-assets-/photo_2024-10-25_16-41-03_20251211_182722_0000.jpg" alt="Dalhousie 3"></div>
+                </div>
+            </div>
+            <div class="package-content">
+                <h3 class="pkg-title color-dalhousie">DALHOUSIE</h3>
+                <p class="pkg-desc">Discover Khajjiar, Panchpula, Dainkund Peak, and Kalatop Wildlife Sanctuary.</p>
+                <a href="https://wa.me/+918894900093?text=Hello!%20I%20am%20interested%20in%20your%20travel%20packages." class="pkg-btn">Get Free Booking</a>
+            </div>
+        </div>
+
+        <div class="package-row">
+            <div class="carousel-container" id="carousel-spiti">
+                <div class="carousel-track">
+                    <div class="carousel-slide"><img src="https://cdn.jsdelivr.net/gh/prikshitbhardwaj259-sketch/Trance-Himachal-assets-/IMG_20251212_225631.jpg" alt="Spiti 1"></div>
+                    <div class="carousel-slide"><img src="https://cdn.jsdelivr.net/gh/prikshitbhardwaj259-sketch/Trance-Himachal-assets-/IMG_20251212_225618.jpg" alt="Spiti 2"></div>
+                    <div class="carousel-slide"><img src="https://cdn.jsdelivr.net/gh/prikshitbhardwaj259-sketch/Trance-Himachal-assets-/IMG_20251212_225609.jpg" alt="Spiti 3"></div>
+                </div>
+            </div>
+            <div class="package-content">
+                <h3 class="pkg-title color-spiti">SPITI</h3>
+                <p class="pkg-desc">Adventure into Kaza, Key Monastery, Chandratal Lake, and Pin Valley National Park.</p>
+                <a href="https://wa.me/+918894900093?text=Hello!%20I%20am%20interested%20in%20your%20travel%20packages." class="pkg-btn">Get Free Booking</a>
+            </div>
+        </div>
+
+    </section>
+
+    <footer>
+        <div class="footer-info">" From planning to return, we’ve got your Himachal covered."
+
+            Trance Himachal | Call: <a href="tel:+91 9816293093">+91 98162 93093</a>
+        </div>
+        <div class="footer-info">
+            &copy; 2025 Trance Himachal. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousels = document.querySelectorAll('.carousel-container');
+
+            carousels.forEach(carousel => {
+                const track = carousel.querySelector('.carousel-track');
+                const slides = carousel.querySelectorAll('.carousel-slide');
+                const slideCount = slides.length;
+                let currentIndex = 0;
+
+                // Function to move slide
+                const moveSlide = () => {
+                    currentIndex++;
+                    
+                    if (currentIndex >= slideCount) {
+                        currentIndex = 0;
+                    }
+
+                    const translateX = -(currentIndex * 100);
+                    track.style.transform = `translateX(${translateX}%)`;
+                };
+
+                // Auto Scroll every 3 seconds
+                setInterval(moveSlide, 3000);
+            });
+        });
+    </script>
+</body>
+</html>
